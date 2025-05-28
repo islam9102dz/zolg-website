@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="تواصل مع Zolg Security">
+    <meta name="author" content="Zolg Security">
+    <title>Zolg Security - نموذج التواصل</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔒</text></svg>">
+</head>
+<body>
+    <div class="container">
+        <div class="header-wave"></div>
+        
+        <header>
+            <h1><i class="fas fa-shield-alt"></i> Zolg Security</h1>
+            <div class="personal-project">مبادرة أمن سيبراني</div>
+            <p class="header-subtitle">مبادرة من Zolg Security تهدف لزيادة الوعي بمخاطر الابتزاز الإلكتروني وكيفية الوقاية منه</p>
+            
+            <div class="nav-tabs">
+                <a href="index.html" class="nav-tab">
+                    <i class="fas fa-home"></i> الصفحة الرئيسية
+                </a>
+                <a href="tips.html" class="nav-tab">
+                    <i class="fas fa-lightbulb"></i> نصائح الحماية
+                </a>
+                <a href="resources.html" class="nav-tab">
+                    <i class="fas fa-book"></i> مصادر تعليمية
+                </a>
+                <a href="support.html" class="nav-tab">
+                    <i class="fas fa-headset"></i> الدعم والمساعدة
+                </a>
+                <a href="report.html" class="nav-tab active">
+                    <i class="fas fa-flag"></i> نموذج التواصل
+                </a>
+            </div>
+        </header>
+        
+        <main>
+            <section>
+                <h2><i class="fas fa-flag"></i> نموذج تواصل</h2>
+                <p class="intro-text">يمكنك استخدام هذا النموذج لإرسال أفكارك أو اقتراحاتك لتطوير الموقع. جميع الرسائل سيتم معاملتها بسرية تامة.</p>
+                
+                <form id="reportForm">
+                    <div class="form-group">
+                        <label for="name"><i class="fas fa-user"></i> الاسم (اختياري):</label>
+                        <input type="text" id="name" placeholder="اسمك">
+                    </div>
+                    <div class="form-group">
+                        <label for="contact"><i class="fas fa-envelope"></i> طريقة التواصل (اختياري):</label>
+                        <input type="text" id="contact" placeholder="هاتف أو بريد إلكتروني">
+                    </div>
+                    <div class="form-group">
+                        <label for="description"><i class="fas fa-edit"></i> رسالتك:</label>
+                        <textarea id="description" rows="5" placeholder="اكتب رسالتك هنا..." required></textarea>
+                    </div>
+                    
+                    <div class="captcha-container">
+                        <div class="captcha-box">4 + 5 = ?</div>
+                        <input type="text" id="captcha" placeholder="أدخل الإجابة" required>
+                    </div>
+                    
+                    <button type="submit">
+                        <i class="fas fa-paper-plane"></i> إرسال الرسالة
+                    </button>
+                </form>
+                <p id="responseMessage" class="response-message"></p>
+            </section>
+        </main>
+        
+        <footer>
+            <div class="footer-content">
+                <h3>Zolg Security</h3>
+                <p>هذا الموقع هو مبادرة أمنية تهدف إلى التوعية بمخاطر الابتزاز الإلكتروني. لا نتبع أي جهة حكومية أو رسمية.</p>
+                
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>مبادرة أمن سيبراني</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>حماية المستخدمين الرقميين</span>
+                    </div>
+                </div>
+                <p class="copyright">حقوق النشر © 2025 - Zolg Security</p>
+                <p class="security-info">
+                    <i class="fas fa-lock"></i> الموقع محمي بتقنيات أمنية متقدمة
+                </p>
+            </div>
+        </footer>
+    </div>
+    
+    <script>
+        // تأمين إرسال الرسالة إلى Discord Webhook
+        document.addEventListener('DOMContentLoaded', function() {
+            const reportForm = document.getElementById('reportForm');
+            
+            if (reportForm) {
+                reportForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const name = document.getElementById('name').value || "غير مسمى";
+                    const contact = document.getElementById('contact').value || "لم يتم تقديم معلومات اتصال";
+                    const description = document.getElementById('description').value;
+                    const captcha = document.getElementById('captcha').value;
+                    
+                    // التحقق من CAPTCHA البسيطة
+                    if (captcha !== "9") {
+                        const responseMessage = document.getElementById('responseMessage');
+                        responseMessage.textContent = 'الإجابة غير صحيحة. يرجى المحاولة مرة أخرى.';
+                        responseMessage.style.display = 'block';
+                        responseMessage.style.backgroundColor = '#ffebee';
+                        responseMessage.style.color = '#c62828';
+                        return;
+                    }
+                    
+                    // Show loading message
+                    const responseMessage = document.getElementById('responseMessage');
+                    responseMessage.textContent = 'جارٍ إرسال رسالتك...';
+                    responseMessage.style.display = 'block';
+                    responseMessage.style.backgroundColor = '#e3f2fd';
+                    responseMessage.style.color = '#0d47a1';
+                    
+                    // إرسال البيانات إلى ديسكورد
+                    const webhookURL = "https://discord.com/api/webhooks/1377347502033862807/JsqCAKbbc6R49l1_S2AsxMkvXyYaRgvOBBrnkzaR6VEtmVIsp54OmKiIlFHDA3zIQBG7";
+                    
+                    const message = {
+                        content: `**رسالة جديدة من موقع Zolg Security**\n\n**الاسم:** ${name}\n**الاتصال:** ${contact}\n**الرسالة:**\n${description}`
+                    };
+                    
+                    fetch(webhookURL, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(message),
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            responseMessage.textContent = 'تم استلام رسالتك بنجاح! شكراً لك على تواصلك معنا.';
+                            responseMessage.style.backgroundColor = '#e8f5e9';
+                            responseMessage.style.color = '#2e7d32';
+                            reportForm.reset();
+                        } else {
+                            throw new Error('فشل في إرسال الرسالة');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        responseMessage.textContent = 'حدث خطأ أثناء إرسال الرسالة. يرجى المحاولة مرة أخرى.';
+                        responseMessage.style.backgroundColor = '#ffebee';
+                        responseMessage.style.color = '#c62828';
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>
